@@ -16,37 +16,33 @@
         };
         $scope.graphTypes = ['Pie', 'Row'];
 
-        $scope.getData = function() {
+        $scope.generate = function() {
             d3.csv('data/test.csv', function (data) {
                 $scope.params.ndx = crossfilter(data);
+                generatorService.generateGraph($scope.params, 'container');
             });
+            if($scope.toDash) {
+                $state.go('main.dashboard')
+            }
         };
 
-        $scope.getData();
 
+        if ($state.params.name) {
+            var graph = generatorService.getGraph($state.params.name);
+            $scope.params.graphType = graph.graphType;
+            $scope.params.name = graph.name;
+            $scope.chartOptions = generatorService.getOptions(graph.graphType);
+            $scope.chartOptions.forEach(function(opt) {
+                $scope.params[opt.name] = graph[opt.name];
+            });
+            $scope.generate();
+        }
 
         $scope.typeChange = function() {
             $scope.chartOptions = generatorService.getOptions($scope.params.graphType);
             $scope.chartOptions.forEach(function(opt) {
                 $scope.params[opt.name] = opt.default;
             });
-        };
-
-
-        $scope.generate = function() {
-            if($scope.toDash) {
-                $state.go('main.dashboard')
-            }
-            generatorService.generateGraph($scope.params, 'container');
-        };
-
-        $scope.generateFromList = function(config) {
-            config.ndx = $scope.params.ndx;
-            $scope.chartOptions = generatorService.getOptions(config.graphType);
-            $scope.chartOptions.forEach(function(opt) {
-                $scope.params[opt.name] = config[opt.name];
-            });
-            generatorService.generateGraph(config, 'container');
         };
 
     }

@@ -60,8 +60,16 @@
 
         };
 
-        service.getGraphs = function() {
+        service.getGraphList = function() {
             return getCache().values();
+        };
+
+        service.getGraph = function(name) {
+            return getCache().get(name);
+        };
+
+        service.removeGraph = function(name) {
+            getCache().remove(name);
         };
 
         return service;

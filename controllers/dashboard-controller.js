@@ -9,8 +9,7 @@
 
     function DashboardController($scope, $state, generatorService) {
 
-        $scope.graphs = generatorService.getGraphs();
-        console.log($scope.graphs);
+        $scope.graphs = generatorService.getGraphList();
 
         d3.csv('data/test.csv', function (data) {
             var ndx = crossfilter(data);
@@ -22,6 +21,10 @@
 
         });
 
+        $scope.deleteGraph = function(graph) {
+            generatorService.removeGraph(graph.name);
+            $scope.graphs = generatorService.getGraphList();
+        };
     }
 
 }());
