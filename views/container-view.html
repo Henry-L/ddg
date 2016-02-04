@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-md-2" style="border: 1px solid blue">
+        <input ng-model="source" placeholder="source...">
+        <button ng-click="getData()" class="btn">GET DATA</button>
+
+
+        <input ng-model="params.x" placeholder="x...">
+        <input ng-model="params.y" placeholder="y...">
+
+        <button ng-click="testData()" class="btn">TEST DATA</button>
+    </div>
+    <div class="col-md-10">
+        <div ui-view></div>
+    </div>
+</div>

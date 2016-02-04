@@ -23,7 +23,7 @@
 
         $scope.testData = function() {
             //$scope.graphics.push(counter);
-            var pieYear = dc.rowChart("#graphic_" + counter);
+            var pieYear = dc.barChart("#graphic_" + counter);
             counter += 1;
 
             var countByX = $scope.ndx.dimension(function (d) {
