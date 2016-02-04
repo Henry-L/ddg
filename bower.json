@@ -14,6 +14,6 @@
     "d3-tip": "~0.6.7",
     "dcjs": "~1.7.5",
     "lodash": "~4.2.1",
-    "Materialize": "materialize#~0.97.5"
+    "angular-cache": "^4.5.0"
   }
 }
