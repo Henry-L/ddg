@@ -1,0 +1,14 @@
+<input ng-model="source" placeholder="source...">
+<button ng-click="getData()">GET DATA</button>
+
+
+<input ng-model="params.x" placeholder="x...">
+<input ng-model="params.y" placeholder="y...">
+
+<button ng-click="testData()">TEST DATA</button>
+
+<div ng-repeat="graphs in graphics">
+    <div id="graphic_{{$index}}"></div>
+</div>
+
+<div id="pie-year"></div>
