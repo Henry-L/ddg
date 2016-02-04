@@ -9,6 +9,9 @@
 
     function FormController($scope, $state, generatorService) {
 
+        $scope.graphs = generatorService.getGraphs();
+        console.log($scope.graphs);
+
         $scope.source = 'test-data';
         $scope.params = {
             x: 'site_name',
@@ -33,18 +36,24 @@
             $scope.chartOptions = generatorService.getOptions($scope.params.graphType);
             $scope.chartOptions.forEach(function(opt) {
                 $scope.params[opt.name] = opt.default;
-            })
+            });
         };
 
 
         $scope.generate = function() {
-            console.log($scope.params);
             generatorService.generateGraph($scope.params, counter);
             counter += 1;
+        };
 
-            //dc.renderAll();
-
-        }
+        $scope.generateFromList = function(config) {
+            config.ndx = $scope.params.ndx;
+            $scope.chartOptions = generatorService.getOptions(config.graphType);
+            $scope.chartOptions.forEach(function(opt) {
+                $scope.params[opt.name] = config[opt.name];
+            });
+            generatorService.generateGraph(config, counter);
+            counter += 1;
+        };
 
     }
 

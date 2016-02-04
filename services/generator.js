@@ -9,6 +9,18 @@
 
     function GeneratorService(CacheFactory) {
 
+        var service = {};
+
+        var getCache = function() {
+            if (!CacheFactory.get('graphCache')) {
+                return new CacheFactory('graphCache', {
+                    storageImpl: localStorage
+                });
+            } else {
+                return CacheFactory.get('graphCache');
+            }
+        };
+
         var possibleOptions = [
             {name: 'width', type: 'number', default: 300},
             {name: 'height', type: 'number', default: 300},
@@ -17,31 +29,39 @@
         ];
 
         // declare public API
-        var service = {
-            getOptions: function(graphType) {
-                var type = graphType + 'Chart';
-                return _.filter(possibleOptions, function(o) {
-                    return Object.keys(dc[type]()).indexOf(o.name) > -1
-                })
-            },
-            generateGraph: function(config, index) {
-                console.log(config.graphType + 'Chart')
-                var graph = dc[config.graphType + 'Chart']("#graphic_" + index);
 
-                var countByX = config.ndx.dimension(function (d) {
-                    return d[config.x];
-                }), countByXGroup = countByX.group().reduceSum(function (d) {
-                    return d[config.y]
-                });
+        service.getOptions = function(graphType) {
+            var type = graphType + 'Chart';
+            return _.filter(possibleOptions, function(o) {
+                return Object.keys(dc[type]()).indexOf(o.name) > -1
+            })
+        };
 
-                graph
-                    .width(config.width)
-                    .height(config.height)
-                    .dimension(countByX)
-                    .group(countByXGroup);
+        service.generateGraph = function(config, index) {
+            console.log(config);
+            var graph = dc[config.graphType + 'Chart']("#graphic_" + index);
 
-                graph.render();
-            }
+            var countByX = config.ndx.dimension(function (d) {
+                return d[config.x];
+            }), countByXGroup = countByX.group().reduceSum(function (d) {
+                return d[config.y]
+            });
+
+            graph
+                .width(config.width)
+                .height(config.height)
+                .dimension(countByX)
+                .group(countByXGroup);
+
+            graph.render();
+
+            var cache = getCache();
+            cache.put(config.name, config);
+
+        };
+
+        service.getGraphs = function() {
+            return getCache().values();
         };
 
         return service;
