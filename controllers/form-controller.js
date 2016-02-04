@@ -9,10 +9,12 @@
 
     function FormController($scope, $state) {
 
-        $scope.source = '';
+        $scope.source = 'test-data';
         $scope.params = {};
         $scope.graphics = [0,1,2,3];
         var counter = 0;
+
+        $scope.graphTypes = ['Pie', 'Bar'];
 
         $scope.getData = function() {
             d3.csv('data/test.csv', function(data) {
@@ -20,10 +22,13 @@
             });
         };
 
+        $scope.getData();
+
 
         $scope.testData = function() {
+
             //$scope.graphics.push(counter);
-            var pieYear = dc.barChart("#graphic_" + counter);
+            var pieYear = dc.rowChart("#graphic_" + counter);
             counter += 1;
 
             var countByX = $scope.ndx.dimension(function (d) {
