@@ -9,17 +9,11 @@
 
     function FormController($scope, $state, generatorService) {
 
-        $scope.graphs = generatorService.getGraphs();
-        console.log($scope.graphs);
-
         $scope.source = 'test-data';
         $scope.params = {
             x: 'site_name',
             y: 'demand_cost'
         };
-        $scope.graphics = [0,1,2,3];
-        var counter = 0;
-
         $scope.graphTypes = ['Pie', 'Row'];
 
         $scope.getData = function() {
@@ -31,7 +25,6 @@
         $scope.getData();
 
 
-
         $scope.typeChange = function() {
             $scope.chartOptions = generatorService.getOptions($scope.params.graphType);
             $scope.chartOptions.forEach(function(opt) {
@@ -41,8 +34,10 @@
 
 
         $scope.generate = function() {
-            generatorService.generateGraph($scope.params, counter);
-            counter += 1;
+            if($scope.toDash) {
+                $state.go('main.dashboard')
+            }
+            generatorService.generateGraph($scope.params, 'container');
         };
 
         $scope.generateFromList = function(config) {
@@ -51,8 +46,7 @@
             $scope.chartOptions.forEach(function(opt) {
                 $scope.params[opt.name] = config[opt.name];
             });
-            generatorService.generateGraph(config, counter);
-            counter += 1;
+            generatorService.generateGraph(config, 'container');
         };
 
     }

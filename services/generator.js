@@ -39,7 +39,7 @@
 
         service.generateGraph = function(config, index) {
             console.log(config);
-            var graph = dc[config.graphType + 'Chart']("#graphic_" + index);
+            var graph = dc[config.graphType + 'Chart']("#graphic-" + index);
 
             var countByX = config.ndx.dimension(function (d) {
                 return d[config.x];

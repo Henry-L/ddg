@@ -1,53 +1,49 @@
-<div class="row">
-    <div class="col-md-3" style="border: 1px solid blue">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3" style="border-right: 1px solid #b9b9b9">
 
-        <form class="form" name="graphForm" ng-submit="generate()">
-            <div class="form-group">
-                <label>Name</label>
-                <input class="form-control" type="text" ng-model="params.name" placeholder="Enter a name..." required>
-            </div>
-            <div class="form-group">
-                <label>Graph Type</label>
-                <select class="form-control" ng-model="params.graphType" ng-change="typeChange()">
-                    <option ng-repeat="type in graphTypes" value="{{type.toLowerCase()}}">{{type}}</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Data Source</label>
-                <input class="form-control" ng-model="source" placeholder="source...">
-            </div>
-
-            <div class="form-group">
-                <input type="text" class="form-control" ng-model="params.x" name="x" placeholder="x...">
-                <input type="text" class="form-control" ng-model="params.y" name="y" placeholder="y...">
-            </div>
-
-            <div class="form-group">
-                <div ng-repeat="option in chartOptions">
-                    <label>{{option.name}}</label>
-                    <input type={{option.type}}
-                           class="form-control"
-                           ng-model="params[option.name]"
-                           name="{{option.name}}">
+            <form class="form" name="graphForm" ng-submit="generate()">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input class="form-control" type="text" ng-model="params.name" placeholder="Enter a name..." required>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label>Graph Type</label>
+                    <select class="form-control" ng-model="params.graphType" ng-change="typeChange()">
+                        <option ng-repeat="type in graphTypes" value="{{type.toLowerCase()}}">{{type}}</option>
+                    </select>
+                </div>
 
-            <button type="submit" class="btn btn-primary">Save</button>
-        </form>
+                <div class="form-group">
+                    <label>Data Source</label>
+                    <input class="form-control" ng-model="source" placeholder="source...">
+                </div>
 
-        <br>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="params.x" name="x" placeholder="x...">
+                    <input type="text" class="form-control" ng-model="params.y" name="y" placeholder="y...">
+                </div>
 
-        <div ng-repeat="graph in graphs track by $index">
-            <button class="btn" ng-click="generateFromList(graph)">{{graph.name}}</button>
+                <div class="form-group">
+                    <div ng-repeat="option in chartOptions">
+                        <label>{{option.name}}</label>
+                        <input type={{option.type}}
+                               class="form-control"
+                               ng-model="params[option.name]"
+                               name="{{option.name}}">
+                    </div>
+                </div>
+
+                <button type="submit" ng-click="toDash=true" class="btn btn-primary">Save</button>
+
+                <button type="submit" class="btn btn-primary">Apply</button>
+            </form>
+            <br>
+        </div>
+
+        <div class="col-md-9">
+            <div id="graphic-container"></div>
         </div>
 
     </div>
-
-    <div class="col-md-9">
-        <div ng-repeat="graphs in graphics">
-            <div id="graphic_{{$index}}"></div>
-        </div>
-    </div>
-
 </div>

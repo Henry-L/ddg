@@ -1,0 +1,17 @@
+
+<div class="container">
+    <div class="row">
+        <button ui-sref="main.form" class="btn btn-primary">ADD GRAPH</button>
+    </div>
+
+    <div class="row">
+        <div ng-repeat="graph in graphs track by $index">
+            <button class="btn btn-primary btn-small">
+                <i class="fa fa-lg fa-pencil-square-o"></i>
+            </button>
+
+            <div id="graphic-{{graph.name}}"></div>
+        </div>
+    </div>
+
+</div>
