@@ -11,18 +11,20 @@
 
         $scope.graphs = generatorService.getGraphList();
 
+        console.log($scope.graphs);
+
         d3.csv('data/test.csv', function (data) {
             var ndx = crossfilter(data);
 
             $scope.graphs.forEach(function(graph) {
                 graph.ndx = ndx;
-                generatorService.generateGraph(graph, graph.name)
+                generatorService.generateGraph(graph, graph.id)
             })
 
         });
 
         $scope.deleteGraph = function(graph) {
-            generatorService.removeGraph(graph.name);
+            generatorService.removeGraph(graph.id);
             $scope.graphs = generatorService.getGraphList();
         };
     }

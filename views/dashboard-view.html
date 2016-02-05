@@ -1,20 +1,24 @@
 
 <div class="container-fluid">
     <div class="row">
-        <button ui-sref="main.create" class="btn btn-primary">ADD GRAPH</button>
+        <div class="col-md-3">
+            <button ui-sref="main.create" class="btn btn-primary">ADD GRAPH</button>
+        </div>
     </div>
 
     <div class="row">
-        <div class="col-md-3" ng-repeat="graph in graphs track by $index">
-            <div class="panel" style="height: {{graph.height + 50 + 'px'}}; width: {{graph.width + 50 + 'px'}}">
-                <button class="btn btn-primary" ui-sref="main.edit({name: graph.name})">
+        <div class="col-md-3 col-md-offset-2" ng-repeat="graph in graphs track by $index" style="margin-top: 50px;">
+            <div class="text-center panel" style="height: {{graph.height + 'px'}}; width: {{graph.width + 'px'}}">
+                <button class="btn btn-primary pull-left" ui-sref="main.edit({id: graph.id})">
                     <i class="fa fa-lg fa-pencil-square-o"></i>
                 </button>
                 <button class="btn btn-danger pull-right" ng-click="deleteGraph(graph)">
                     <i class="fa fa-lg fa-trash"></i>
                 </button>
 
-                <div id="graphic-{{graph.name}}"></div>
+                <span class="text-center">{{graph.name}}</span>
+
+                <div id="graphic-{{graph.id}}"></div>
             </div>
         </div>
     </div>

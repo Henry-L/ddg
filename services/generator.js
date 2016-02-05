@@ -24,8 +24,7 @@
         var possibleOptions = [
             {name: 'width', type: 'number', default: 300},
             {name: 'height', type: 'number', default: 300},
-            {name: 'radius', type: 'number', default: 30},
-            {name: 'label', type: 'checkbox', default: true}
+            {name: 'radius', type: 'number', default: 30}
         ];
 
         // declare public API
@@ -38,7 +37,6 @@
         };
 
         service.generateGraph = function(config, index) {
-            console.log(config);
             var graph = dc[config.graphType + 'Chart']("#graphic-" + index);
 
             var countByX = config.ndx.dimension(function (d) {
@@ -56,7 +54,7 @@
             graph.render();
 
             var cache = getCache();
-            cache.put(config.name, config);
+            cache.put(config.id, config);
 
         };
 
